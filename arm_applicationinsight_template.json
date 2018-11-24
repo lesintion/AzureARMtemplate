@@ -1,0 +1,28 @@
+{
+    "$schema": "http://schema.management.azure.com/schemas/2014-04-01-preview/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "name": {
+            "type": "string"
+        },
+        "kind": {
+            "type": "string"
+        },
+        "location": {
+            "type": "string"
+        },
+        "properties": {
+            "type":"object"
+        }
+    },
+    "resources": [
+        {
+            "type": "Microsoft.Insights/components",
+            "kind": "[parameters('kind')]",
+            "name": "[parameters('name')]",
+            "apiVersion": "2015-05-01",
+            "location": "[parameters('location')]",
+            "properties": "[parameters('properties')]"
+        }
+    ]
+}
