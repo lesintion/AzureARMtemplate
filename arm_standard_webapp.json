@@ -1,0 +1,97 @@
+{
+    "$schema": "http://schema.management.azure.com/schemas/2014-04-01-preview/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "name": {
+            "type": "string",
+            "metadata": {
+                "description": "The name of web app."
+            }
+        },
+        "siteConfig":{
+            "type": "object",
+            "defaultValue": {}
+        },
+        "hostingPlanName": {
+            "type": "string",
+            "metadata": {
+                "description": "The name of service plan that host the web app."
+            }
+        },
+        "hostingEnvironment": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "location": {
+            "type": "string",
+            "defaultValue": "East US"
+        },
+        "sku": {
+            "type": "string",
+            "defaultValue": "Standard"
+        },
+        "skuCode": {
+            "type": "string",
+            "defaultValue": "S1"
+        },
+        "workerSize": {
+            "type": "string",
+            "defaultValue": 0
+        },
+        "serverFarmResourceGroup": {
+            "type": "string"
+        },
+        "subscriptionId": {
+            "type": "string"
+        }
+    },
+    "resources": [
+        {
+            "type": "Microsoft.Web/sites",
+            "name": "[parameters('name')]",
+            "apiVersion": "2016-03-01",
+            "location": "[parameters('location')]",
+            "properties": {
+                "siteConfig": "[parameters('siteConfig')]",
+                "name": "[parameters('name')]",
+                "serverFarmId": "[concat('/subscriptions/', parameters('subscriptionId'),'/resourcegroups/', parameters('serverFarmResourceGroup'), '/providers/Microsoft.Web/serverfarms/', parameters('hostingPlanName'))]",
+                "hostingEnvironment": "[parameters('hostingEnvironment')]"
+            },
+            "dependsOn": [
+                "[concat('Microsoft.Web/serverfarms/', parameters('hostingPlanName'))]",
+                "[resourceId('microsoft.insights/components/', parameters('name'))]"
+            ]
+        },
+        {
+            "type": "Microsoft.Web/serverfarms",
+            "sku": {
+                "Tier": "[parameters('sku')]",
+                "Name": "[parameters('skuCode')]"
+            },
+            "name": "[parameters('hostingPlanName')]",
+            "apiVersion": "2016-09-01",
+            "location": "[parameters('location')]",
+            "properties": {
+                "name": "[parameters('hostingPlanName')]",
+                "workerSizeId": "[parameters('workerSize')]",
+                "numberOfWorkers": "1",
+                "hostingEnvironment": "[parameters('hostingEnvironment')]"
+            }
+        },
+        {
+            "type": "Microsoft.Insights/components",
+            "kind": "web",
+            "name": "[parameters('name')]",
+            "apiVersion": "2015-05-01",
+            "location": "East US",
+            "tags": {
+                "[concat('hidden-link:', resourceGroup().id, '/providers/Microsoft.Web/sites/', parameters('name'))]": "Resource"
+            },
+            "properties": {
+                "Application_Type":"web",
+                "ApplicationId": "[parameters('name')]",
+                "Request_Source": "rest"
+            }
+        }
+    ]
+}

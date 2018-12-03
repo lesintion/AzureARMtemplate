@@ -1,0 +1,10 @@
+{
+    "apiVersion": "2017-05-10",
+    "name": "linkedTemplate",
+    "type": "Microsoft.Resources/deployments",
+    "properties": {
+      "mode": "Incremental",
+      "template": {},
+      "parameters": {}
+    }
+ }
