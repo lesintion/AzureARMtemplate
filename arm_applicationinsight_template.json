@@ -27,9 +27,5 @@
             "location": "[parameters('location')]",
             "properties": "[parameters('properties')]"
         }
-    ],
-    "outputs": {
-        "type": "object",
-        "value":"[reference(resourceId('microsoft.insights/components/', parameters('name')), '2015-05-01')]"
-    }
+    ]
 }
