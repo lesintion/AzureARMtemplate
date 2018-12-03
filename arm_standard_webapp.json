@@ -43,6 +43,10 @@
         },
         "subscriptionId": {
             "type": "string"
+        },
+        "includeApplicationInsight":{
+            "type": "bool",
+            "defaultValue": "True"
         }
     },
     "resources": [
@@ -58,8 +62,7 @@
                 "hostingEnvironment": "[parameters('hostingEnvironment')]"
             },
             "dependsOn": [
-                "[concat('Microsoft.Web/serverfarms/', parameters('hostingPlanName'))]",
-                "[resourceId('microsoft.insights/components/', parameters('name'))]"
+                "[concat('Microsoft.Web/serverfarms/', parameters('hostingPlanName'))]"
             ]
         },
         {
@@ -79,11 +82,12 @@
             }
         },
         {
+            "condition":"[parameters('includeApplicationInsight')]",
             "type": "Microsoft.Insights/components",
             "kind": "web",
             "name": "[parameters('name')]",
             "apiVersion": "2015-05-01",
-            "location": "East US",
+            "location": "[parameters('location')]",
             "tags": {
                 "[concat('hidden-link:', resourceGroup().id, '/providers/Microsoft.Web/sites/', parameters('name'))]": "Resource"
             },

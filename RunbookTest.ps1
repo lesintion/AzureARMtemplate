@@ -1,5 +1,6 @@
 $webapp_templateUrl = "https://raw.githubusercontent.com/lesintion/AzureARMtemplate/master/arm_standard_webapp.json"
 $linked_templateUrl = "https://raw.githubusercontent.com/lesintion/AzureARMtemplate/master/arm_linked_template.json"
+$webapp_deployment_templateUrl = "https://raw.githubusercontent.com/lesintion/AzureARMtemplate/master/arm_webapp_deployment_template.json"
 
 $webapp_templateObject = Invoke-WebRequest -uri $webapp_templateUrl| ConvertFrom-Json
 $linked_templateObject = Invoke-WebRequest -uri $linked_templateUrl| ConvertFrom-Json
@@ -27,5 +28,9 @@ $webapp_parameters = @{
     subscriptionId          = "0d067ba0-399d-435e-98bd-a33ba0d5fbcd"
 }
 
+$webapp_template = Invoke-WebRequest -uri $linked_templateUrl| ConvertFrom-Json
 
-Write-Output $templateObject
+
+New-AzureRmResourceGroupDeployment -ResourceGroupName $resourceGroupName -NameFromTemplate $parameterObject.name - $templateFilePath -TemplateParameterObject $parameterObject;
+
+Write-Output $templateObject 
