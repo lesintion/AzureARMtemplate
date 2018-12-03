@@ -14,7 +14,7 @@
             "defaultValue": "[resourceGroup().location]"
         },
         "properties": {
-            "type":"object",
+            "type": "object",
             "defaultValue": {}
         }
     },
@@ -29,7 +29,9 @@
         }
     ],
     "outputs": {
-        "type": "String",
-        "value":"[reference(resourceId('microsoft.insights/components/', parameters('name')), '2015-05-01','Full').InstrumentationKey]"
+        "InstrumentationKey": {
+            "type": "string",
+            "value": "[reference(resourceId('microsoft.insights/components/', parameters('name')), '2015-05-01','Full').InstrumentationKey]"
+        }
     }
 }
