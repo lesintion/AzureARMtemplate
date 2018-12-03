@@ -30,8 +30,8 @@
     ],
     "outputs": {
         "InstrumentationKey": {
-            "type": "string",
-            "value": "[reference(resourceId('microsoft.insights/components/', parameters('name')), '2015-05-01','Full').InstrumentationKey]"
+            "type": "object",
+            "value": "[reference(resourceId('microsoft.insights/components/', parameters('name')), '2015-05-01','Full')]"
         }
     }
 }
