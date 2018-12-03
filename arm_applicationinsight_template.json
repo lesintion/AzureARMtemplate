@@ -10,10 +10,12 @@
             "defaultValue": "web"
         },
         "location": {
-            "type": "string"
+            "type": "string",
+            "defaultValue": "[resourceGroup().location]"
         },
         "properties": {
-            "type":"object"
+            "type":"object",
+            "defaultValue": {}
         }
     },
     "resources": [
@@ -25,5 +27,9 @@
             "location": "[parameters('location')]",
             "properties": "[parameters('properties')]"
         }
-    ]
+    ],
+    "outputs": {
+        "type": "string",
+        "value":"[reference(resourceId('microsoft.insights/components/', parameters('name')), '2015-05-01').InstrumentationKey]"
+    }
 }
