@@ -46,7 +46,7 @@
         },
         "includeApplicationInsight":{
             "type": "bool",
-            "defaultValue": "True"
+            "defaultValue": true
         }
     },
     "resources": [
@@ -82,7 +82,7 @@
             }
         },
         {
-            "condition":"[equals(parameters('includeApplicationInsight'),'True')]",
+            "condition":"[parameters('includeApplicationInsight')]",
             "type": "Microsoft.Insights/components",
             "kind": "web",
             "name": "[parameters('name')]",

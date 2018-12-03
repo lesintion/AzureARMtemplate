@@ -27,7 +27,7 @@ $webapp_parameters = @{
     serverFarmResourceGroup   = "k8s"
     subscriptionId            = "0d067ba0-399d-435e-98bd-a33ba0d5fbcd"
     siteConfig                = @{}
-    includeApplicationInsight = $false
+    # includeApplicationInsight = $true
 }
 
 # $webapp_template = Invoke-WebRequest -uri $webapp_deployment_templateUrl| ConvertFrom-Json
