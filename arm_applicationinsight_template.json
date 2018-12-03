@@ -6,7 +6,8 @@
             "type": "string"
         },
         "kind": {
-            "type": "string"
+            "type": "string",
+            "defaultValue": "web"
         },
         "location": {
             "type": "string"

@@ -4,7 +4,10 @@
     "type": "Microsoft.Resources/deployments",
     "properties": {
       "mode": "Incremental",
-      "template": {},
+      "templateLink": {
+         "uri":"",
+         "contentVersion":"1.0.0.0"
+      },
       "parameters": {}
     }
  }
