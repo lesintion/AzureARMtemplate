@@ -82,7 +82,7 @@
             }
         },
         {
-            "condition":"[parameters('includeApplicationInsight')]",
+            "condition":"[equals(parameters('includeApplicationInsight'),'True')]",
             "type": "Microsoft.Insights/components",
             "kind": "web",
             "name": "[parameters('name')]",
